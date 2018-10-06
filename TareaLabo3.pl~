@@ -1,5 +1,3 @@
-%ida_y_vuelta(inicio,fin).
-
 conecta_con(calle,cochera).
 conecta_con(cochera,calle).
 conecta_con(cochera,sala).
@@ -29,37 +27,44 @@ conecta_con(quiosco,jardin).
 conecta_con(jardin,quiosco).
 
 esta_en(pantuflas,cuarto_de_rodri).
-esta_en(flore,jardin).
+esta_en(flores,jardin).
 esta_en(pisto,cuarto_de_papas).
 esta_en(vaso_con_agua,cocina).
 esta_en(limones,jardin).
 esta_en(papel_higienico,baño).
 
+ve_por(Objeto,Posicion):-
+    esta_en(Objeto,Lugar),
+    ida_y_vuelta(Posicion,Lugar),
+    write('Aqui esta lo que solicito: '),
+    writeln(Objeto).
 
-ida_y_vuelta(A,B):-
+ida_y_vuelta(Inicio,Fin):-
     abolish(camino,1),
-    assert(camino(B)),
-    ida(B,A),
-    writeln(B),
+    assert(camino(Fin)),
+    ida(Fin,Inicio),
+    writeln(Fin),
     writeln('**protocolo de retorno**'),
     abolish(camino,1),
-    assert(camino(A)),
-    ida(A,B),
-    writeln(A),
+    assert(camino(Inicio)),
+    ida(Inicio,Fin),
+    writeln(Inicio),
     !.
 
-ida(A,B):-
-    assert(camino(B)),
-    conecta_con(A,B),
-    writeln(B).
+ida(Inicio,Fin):-
+    assert(camino(Fin)),
+    conecta_con(Inicio,Fin),
+    writeln(Fin).
 
-ida(A,B):-
-    conecta_con(A,C),
-    \+camino(C),
-    assert(camino(C)),
-    ida(C,B),
-    writeln(C).
+ida(Inicio,Fin):-
+    conecta_con(Inicio,RutaAlterna),
+    \+camino(RutaAlterna),
+    assert(camino(RutaAlterna)),
+    ida(RutaAlterna,Fin),
+    writeln(RutaAlterna).
 
+%ve_por(objeto,posicion).
+%ida_y_vuelta(inicio,fin).
 
 
 
