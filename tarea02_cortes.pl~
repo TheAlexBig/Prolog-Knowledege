@@ -30,4 +30,3 @@ buscar([Nz,Nc,Nd],Dato,Restante,Cortado):-
 
 
 
-
