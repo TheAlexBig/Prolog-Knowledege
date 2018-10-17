@@ -23,7 +23,6 @@ lectura_repetida:-
     close(Flujo).
 
 
-
 ciclo(Flujo):-
     read(Flujo,Aux),
     \==(Aux, end_of_file),
@@ -34,6 +33,8 @@ ciclo(Flujo):-
 ciclo(Flujo):-
     read(Flujo,Aux),
     ==(Aux, end_of_file).
+
+
 
 
 
