@@ -1,0 +1,44 @@
+d(X,C,0):-
+    number(C),
+    atomic(X),!.
+
+d(X,X,1):-
+    atomic(X),
+    \+number(X),!.
+
+d(X,X^N,N*X^E):-
+    is(E,-(N,1)),
+    atomic(X),!.
+
+d(X,X^1,1):-
+    atomic(X),!.
+
+d(X, log(U), Df1/U):-
+    atomic(X),
+    d(X,U,Df1),!.
+
+d(X,C * F , C * R1):-
+    number(C),
+    atomic(X),
+    d(X,F,R1),!.
+
+d(X,F1*F2,R):-
+    atomic(X),
+    d(X,F1,D1),
+    d(X,F2,D2),
+    =(R,(D1*F2)+(F1*D2)),!.
+
+
+d(X, A^U , A^U * log(A) * Du):-
+    atomic(X),
+    number(A),
+    d(X,U,Du),!.
+
+d(X, U + V, Du + Dv):-
+    atomic(X),
+    d(X,U,Du),
+    d(X,V,Dv),!.
+
+
+
+

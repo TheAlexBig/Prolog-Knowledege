@@ -1,0 +1,3 @@
+verlista([Cabeza|[_|Cola]],Cabeza,Cola).
+
+

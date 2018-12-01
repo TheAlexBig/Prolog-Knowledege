@@ -20,10 +20,28 @@ invertir_lista([Cabeza|Cola],ListaAcumulada,ListaFinal):-
 invertir_numeros(Numero,Resultado):-
     invertir_numero(Numero,0,Resultado).
 
-invertir_numero(_,Num,Num):-!.
+
 invertir_numero(Numero,Invertido,Resultado):-
     >(Numero,10),
     is(Modulo, mod(Numero,10)),
     is(Resto,/(-(Numero,Modulo),10)),
     is(Invertido, +(*(Modulo,10),Resto)),
     invertir_numero(Resto,Invertido,Resultado).
+
+invertir_numero(_,Num,Num):-!.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

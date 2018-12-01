@@ -1,0 +1,43 @@
+%Definir los lados
+lado(derecho).
+lado(izquier).
+
+%Definir los estados validos
+inseguro(F,G,P,Z):-
+    (G=P, not(G=F));
+    (P=Z, not(P=F)).
+
+seguro(F,G,P,Z):-
+    lado(F),lado(G),lado(P),lado(Z),
+    not(inseguro(F,G,P,Z)).
+
+%Definir que transiciones son seguras
+isSafeTransition(state(F,F,C,W),state(Fend,Fend,C,W)) :-
+    seguro(F,F,C,W), seguro(Fend,Fend,C,W).
+isSafeTransition(state(F,G,F,W),state(Fend,G,Fend,W)) :-
+    seguro(F,G,F,W), seguro(Fend,G,Fend,W).
+isSafeTransition(state(F,G,C,F),state(Fend,G,C,Fend)) :-
+    seguro(F,G,C,F), seguro(Fend,G,C,Fend).
+isSafeTransition(state(F,G,C,W),state(Fend,G,C,W))    :-
+    seguro(F,G,C,W), seguro(Fend,G,C,W).
+
+
+trip(A,B,Path):- trip(A,B,Path, []).
+
+% Finishing rule
+trip(CurrentState, EndState,Path, _):-
+    [CurrentState| [EndState|[]] ] = Path,
+    isSafeTransition(CurrentState, EndState).
+
+trip(CurrentState,EndState,Path, PreviousStates):-
+    [CurrentState|[Next|Tail]] = Path,
+    not(member(CurrentState,PreviousStates)),
+    isSafeTransition(CurrentState,Next),
+    trip(Next,EndState, [Next|Tail], [CurrentState|PreviousStates]).
+
+
+
+
+
+
+

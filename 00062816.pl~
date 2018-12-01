@@ -1,0 +1,57 @@
+%ejercicio 3
+
+%por si es necesario
+creararchivo_ejercicio3:-
+    open('palabras.txt',write,Flujo),
+    meter('célebres',Flujo,0),
+    close(Flujo).
+
+meter(_,_,100):-!.
+
+meter(A,Flujo,Contador):-
+    writeln(Contador),
+    write(Flujo,A),
+    is(Acumulado,+(Contador,1)),
+    write(Flujo,Acumulado),
+    write(Flujo,'.\n'),
+    meter(A,Flujo,Acumulado).
+
+celebre:-
+    open('palabras.txt',read,Flujo),
+    random(S),
+    is(Aumentado,mod(round(*(S,100)),100)),
+    leer(Flujo,Aumentado),
+    close(Flujo).
+
+leer(Flujo,0):-
+    read(Flujo,Linea),
+    writeln(Linea),!.
+leer(Flujo,A):-
+   is(Acumulado,-(A,1)),
+   read(Flujo,_),
+   leer(Flujo,Acumulado).
+
+%Ejercicio 5
+
+recorrer(Flujo,_,Insertado):-
+    read(Flujo,Valor1),
+    writeln(Valor1),
+    \==(Valor1, end_of_file),
+    read(Flujo,Valor2),
+    read(Flujo,Valor3),
+     recorrer(Flujo,Lista),
+    =(Insertado,[[Valor1,Valor2,Valor3]|Lista]),!.
+
+recorrer(_,Lista,Lista):-!.
+
+leerdocumento(S):-
+    open('informacion.txt',read,Flujo),
+    recorrer(Flujo,[],Lista),
+    =(S,Lista),
+    close(Flujo).
+
+
+
+
+
+

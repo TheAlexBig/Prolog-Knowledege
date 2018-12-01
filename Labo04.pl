@@ -29,3 +29,11 @@ invertir_numero(Numero,Invertido,Resultado):-
     invertir_numero(Resto,Invertido,Resultado).
 
 invertir_numero(_,Num,Num):-!.
+
+
+
+
+
+
+
+
